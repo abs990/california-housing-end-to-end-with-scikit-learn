@@ -206,8 +206,12 @@ def random_search(pipeline, X, y, n_iter=5, cv=3, random_state=42):
         scoring="neg_root_mean_squared_error", 
         random_state=random_state).fit(X, y)
 
-# Step 17 - test_rmse (not yet solved)
-# TODO: implement
+# Step 17 - test_rmse
+def test_rmse(model, test_set):
+    # add ratio features, split, predict with the fitted model, return rmse.
+    X_test, y_test = split_features_labels(add_ratio_features(test_set))
+
+    return rmse(y_test, model.predict(X_test))
 
 # Step 18 - bootstrap_rmse_ci (not yet solved)
 # TODO: implement
