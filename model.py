@@ -265,6 +265,12 @@ def save_and_reload(model, path):
     joblib.dump(model, path)
     return joblib.load(path)
 
-# Step 22 - predict_new (not yet solved)
-# TODO: implement
+# Step 22 - predict_new
+def predict_new(model, districts):
+    # DataFrame from the dicts
+    # add ratio features, predict, return floats rounded to the dollar.
+    df = pd.DataFrame(districts)
+    df = add_ratio_features(df)
+
+    return [float(round(p)) for p in model.predict(df)]
 
