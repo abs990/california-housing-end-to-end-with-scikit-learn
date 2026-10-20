@@ -106,8 +106,29 @@ def categorical_pipeline():
         OneHotEncoder(handle_unknown="ignore")
         )
 
-# Step 10 - build_preprocessing (not yet solved)
-# TODO: implement
+# Step 10 - build_preprocessing
+def build_preprocessing(n_clusters=10, gamma=1.0, random_state=42):
+    # ColumnTransformer with 'log', 'geo', 'cat' transformers and remainder=numeric_pipeline().
+    from sklearn.pipeline import make_pipeline
+    from sklearn.impute import SimpleImputer
+    from sklearn.preprocessing import FunctionTransformer, StandardScaler
+    from sklearn.compose import ColumnTransformer
+
+    log = make_pipeline(
+        SimpleImputer(strategy="median"), 
+        FunctionTransformer(np.log, feature_names_out="one-to-one"),
+        StandardScaler()
+        )
+    geo = ClusterSimilarity(n_clusters, gamma, random_state)
+    cat = categorical_pipeline()
+    remainder = numeric_pipeline()
+
+    return ColumnTransformer([
+        ("log", log, ["total_bedrooms", "total_rooms", "population", "households", "median_income"]),
+        ("geo", geo, ["latitude", "longitude"]),
+        ("cat", cat, ["ocean_proximity"])],
+        remainder=remainder
+        )
 
 # Step 11 - rmse (not yet solved)
 # TODO: implement
