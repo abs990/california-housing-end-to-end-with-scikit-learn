@@ -258,8 +258,12 @@ def worst_errors(model, df, k=5):
     ret = ret.sort_values("abs_error", ascending=False).head(k)
     return ret
 
-# Step 21 - save_and_reload (not yet solved)
-# TODO: implement
+# Step 21 - save_and_reload
+def save_and_reload(model, path):
+    # TODO: joblib.dump then joblib.load; return the reloaded model.
+    import joblib
+    joblib.dump(model, path)
+    return joblib.load(path)
 
 # Step 22 - predict_new (not yet solved)
 # TODO: implement
