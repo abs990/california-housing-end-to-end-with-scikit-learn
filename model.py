@@ -138,8 +138,21 @@ def rmse(y_true, y_pred):
 
     return float(np.sqrt(np.mean((y_true - y_pred) ** 2)))
 
-# Step 12 - dummy_baseline_rmse (not yet solved)
-# TODO: implement
+# Step 12 - dummy_baseline_rmse
+def dummy_baseline_rmse(X, y):
+    # fit DummyRegressor(strategy='mean') and return its RMSE on (X, y).
+    from sklearn.dummy import DummyRegressor
+
+    # Initialize the Dummy Regressor with the 'mean' strategy
+    dummy_regr = DummyRegressor(strategy="mean")
+
+    # Fit the model
+    dummy_regr.fit(X, y)
+
+    # Make predictions
+    y_pred = dummy_regr.predict(X)
+
+    return rmse(y_pred, y)
 
 # Step 13 - cross_val_rmse (not yet solved)
 # TODO: implement
