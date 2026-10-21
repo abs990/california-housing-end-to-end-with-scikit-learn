@@ -225,7 +225,7 @@ def bootstrap_rmse_ci(y_true, y_pred, n_boot=200, alpha=0.05, random_state=42):
 
     for itr in range(n_boot):
         idx = rng.integers(0, n, n)
-        boots[itr] = rmse(y_true[idx], y_pred[idx])
+        boots[itr] = rmse(y_true.iloc[idx] if isinstance(y_true, pd.Series) else y_true[idx], y_pred[idx])
 
     p_values = np.percentile(boots, [100 * alpha / 2, 100 * (1 - alpha / 2)])
     return float(p_values[0]), float(p_values[1])
